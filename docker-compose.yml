@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "54325:5432"
+    volumes:
+      - blog_data:/var/lib/postgresql/data
+
+volumes:
+  blog_data:
