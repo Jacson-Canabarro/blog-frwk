@@ -44,7 +44,7 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
                 ValidationExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
                         .status(status.value())
-                        .title(exception.getCause().getMessage())
+                        .title("Method Argument Not Valid Exception, check the documentation")
                         .details("Check the field(s) error")
                         .developerMessage(exception.getClass().getName())
                         .fields(fields)
@@ -57,11 +57,10 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .timestamp(LocalDateTime.now())
                 .status(status.value())
-                .title(ex.getCause().getMessage())
+                .title("An Exception was caught, check the documentation")
                 .details(ex.getMessage())
                 .developerMessage(ex.getClass().getName())
                 .build();
-
         return new ResponseEntity(exceptionDetails, headers, status);
     }
 }
