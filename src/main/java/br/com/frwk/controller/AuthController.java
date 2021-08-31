@@ -25,7 +25,7 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<?> auth(@RequestBody @Valid UserAuthRequestBody authRequestBody){
+    public ResponseEntity<TokenResponseBody> auth(@RequestBody @Valid UserAuthRequestBody authRequestBody){
         UsernamePasswordAuthenticationToken data = authRequestBody.converter();
         try {
             Authentication authenticate = authManager.authenticate(data);
