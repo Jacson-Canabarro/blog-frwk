@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User create(UserPostRequestBody postRequestBody){
+    public UserPostRequestBody create(UserPostRequestBody postRequestBody){
         User userRepositoryByEmail = userRepository.findByEmail(postRequestBody.getEmail());
         if (userRepositoryByEmail != null){
             throw new BadRequestException("the e-mail is already registered");
@@ -38,7 +39,6 @@ public class UserService implements UserDetailsService {
         User userMapper = UserMapper.INSTANCE.toUser(postRequestBody);
         userMapper.setPassword(passwordEncoder.encode(postRequestBody.getPassword()));
         User user =  userRepository.save(userMapper);
-        user.setPassword("");
-        return user;
+        return UserMapper.INSTANCE.toUserPostRequestBody(user);
     }
 }

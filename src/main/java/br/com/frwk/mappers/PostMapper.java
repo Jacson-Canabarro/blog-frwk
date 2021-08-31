@@ -11,6 +11,6 @@ public abstract class PostMapper {
 
     public static final PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
 
-    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "user", ignore = true)
     public abstract Post toPost(PostRequestBody PostRequestBody);
 }

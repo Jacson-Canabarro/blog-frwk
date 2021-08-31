@@ -12,4 +12,10 @@ public abstract class UserMapper {
 
     @Mapping(target = "authorities", ignore = true)
     public abstract User toUser(UserPostRequestBody userPostRequestBody);
+
+    @Mapping(target = "password", ignore = true)
+    public abstract UserPostRequestBody toUserPostRequestBody(User user);
+
+
+
 }
