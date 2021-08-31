@@ -14,12 +14,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 
+@Data
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Table(name = "user_blog")
 public class User implements UserDetails, Serializable {
 
@@ -43,6 +39,10 @@ public class User implements UserDetails, Serializable {
     @Transient
     @JsonIgnore
     private String authorities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Post> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
