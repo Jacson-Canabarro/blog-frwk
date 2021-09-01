@@ -1,12 +1,13 @@
 package br.com.frwk.controller;
 
 
-import br.com.frwk.models.Post;
 import br.com.frwk.requests.PostRequestBody;
+import br.com.frwk.responses.PostResponseBody;
 import br.com.frwk.services.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class PostController {
 
 
     @PostMapping
-    public ResponseEntity<Post> create(@Valid PostRequestBody postRequestBody){
+    public ResponseEntity<PostResponseBody> create(@RequestBody @Valid PostRequestBody postRequestBody){
         return ResponseEntity.ok(service.create(postRequestBody));
     }
 }

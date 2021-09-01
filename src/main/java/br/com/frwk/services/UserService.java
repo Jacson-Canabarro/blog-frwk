@@ -5,11 +5,11 @@ import br.com.frwk.mappers.UserMapper;
 import br.com.frwk.models.User;
 import br.com.frwk.repositories.UserRepository;
 import br.com.frwk.requests.UserPostRequestBody;
+import br.com.frwk.responses.UserReponseBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public UserPostRequestBody create(UserPostRequestBody postRequestBody){
+    public UserReponseBody create(UserPostRequestBody postRequestBody){
         User userRepositoryByEmail = userRepository.findByEmail(postRequestBody.getEmail());
         if (userRepositoryByEmail != null){
             throw new BadRequestException("the e-mail is already registered");
@@ -39,6 +39,6 @@ public class UserService implements UserDetailsService {
         User userMapper = UserMapper.INSTANCE.toUser(postRequestBody);
         userMapper.setPassword(passwordEncoder.encode(postRequestBody.getPassword()));
         User user =  userRepository.save(userMapper);
-        return UserMapper.INSTANCE.toUserPostRequestBody(user);
+        return UserMapper.INSTANCE.toUserResponseBody(user);
     }
 }

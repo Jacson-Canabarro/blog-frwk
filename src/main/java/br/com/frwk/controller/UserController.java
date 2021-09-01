@@ -1,8 +1,8 @@
 package br.com.frwk.controller;
 
 
-import br.com.frwk.models.User;
 import br.com.frwk.requests.UserPostRequestBody;
+import br.com.frwk.responses.UserReponseBody;
 import br.com.frwk.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserPostRequestBody> create(@RequestBody @Valid UserPostRequestBody userPostRequestBody){
+    public ResponseEntity<UserReponseBody> create(@RequestBody @Valid UserPostRequestBody userPostRequestBody){
         return ResponseEntity.ok(userService.create(userPostRequestBody));
     }
 
