@@ -12,26 +12,22 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class Comment implements Serializable {
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, unique = true, nullable = false)
     private UUID id;
 
+    @Lob
+    private byte[] content;
 
-    @Column(nullable = false)
-    private String text;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     @ToString.Exclude
     private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    @ToString.Exclude
-    private User user;
-
-
 }
+
