@@ -16,4 +16,6 @@ abra o terminal, navegue até a pasta raiz do projeto e com docker inicializado,
 docker-compose up
 ```
 
+E pronto, tudo certo para iniciar!
+
 
