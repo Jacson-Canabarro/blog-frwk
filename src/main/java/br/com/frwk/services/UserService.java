@@ -7,6 +7,7 @@ import br.com.frwk.repositories.UserRepository;
 import br.com.frwk.requests.UserPostRequestBody;
 import br.com.frwk.responses.UserReponseBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +31,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+
     @Transactional
     public UserReponseBody create(UserPostRequestBody postRequestBody){
         User userRepositoryByEmail = userRepository.findByEmail(postRequestBody.getEmail());
@@ -39,6 +41,11 @@ public class UserService implements UserDetailsService {
         User userMapper = UserMapper.INSTANCE.toUser(postRequestBody);
         userMapper.setPassword(passwordEncoder.encode(postRequestBody.getPassword()));
         User user =  userRepository.save(userMapper);
+        return UserMapper.INSTANCE.toUserResponseBody(user);
+    }
+
+    public UserReponseBody getUserById(Authentication authenticate) {
+        User user = (User) authenticate.getPrincipal();
         return UserMapper.INSTANCE.toUserResponseBody(user);
     }
 }

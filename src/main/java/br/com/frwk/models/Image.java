@@ -1,5 +1,8 @@
 package br.com.frwk.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,9 +12,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Image implements Serializable {
 
     @Id
@@ -26,7 +30,6 @@ public class Image implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    @ToString.Exclude
     private Post post;
 
 }

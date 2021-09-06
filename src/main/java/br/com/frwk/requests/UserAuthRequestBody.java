@@ -2,7 +2,6 @@ package br.com.frwk.requests;
 
 import lombok.Data;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
 import javax.validation.constraints.NotEmpty;
 
 @Data

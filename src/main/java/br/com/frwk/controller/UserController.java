@@ -6,10 +6,8 @@ import br.com.frwk.responses.UserReponseBody;
 import br.com.frwk.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -20,6 +18,12 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+
+
+    @GetMapping
+    public ResponseEntity<UserReponseBody>getById(Authentication authenticate){
+        return ResponseEntity.ok(userService.getUserById(authenticate));
+    }
 
     @PostMapping
     public ResponseEntity<UserReponseBody> create(@RequestBody @Valid UserPostRequestBody userPostRequestBody){

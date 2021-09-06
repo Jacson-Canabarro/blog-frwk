@@ -1,7 +1,11 @@
 package br.com.frwk.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,10 +19,11 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Table(name = "user_blog")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User implements UserDetails, Serializable {
 
     @Id
@@ -32,6 +37,7 @@ public class User implements UserDetails, Serializable {
     @Column(nullable = false)
     private String lastName;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
@@ -42,9 +48,7 @@ public class User implements UserDetails, Serializable {
     @JsonIgnore
     private String authorities;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
     private Collection<Post> posts;
 
     @Override
