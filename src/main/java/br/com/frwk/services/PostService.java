@@ -72,6 +72,7 @@ public class PostService {
                 CommentResponseBody build = new CommentResponseBody();
                 build.setUserID(c.getUser().getId());
                 build.setText(c.getText());
+                build.setUserName(c.getUser().getName());
                 commentResponseBodies.add(build);
             });
 
